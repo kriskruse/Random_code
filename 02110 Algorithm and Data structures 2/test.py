@@ -1,4 +1,5 @@
-import random
+from itertools import  product
+
 
 def inFromCommand():
     return int(input()), list(map(int, input().split()))
@@ -9,47 +10,38 @@ def takeGreedy(left, right):
 def updateList(action, cards):
     # Update the list
     if action == "left":
-        score = cards.pop(0)
+        score = cards[0]
+        cards = cards[1:]
     else:
-        score = cards.pop(-1)
+        score = cards[-1]
+        cards = cards[0:len(cards)-1]
     return score, cards
 
-def takeAlgo(cards, left, right):
-    return random.choice(["left", "right"])
+
+def actionPhase(cards, action):
+    score, cards = updateList(action, cards)
+    updateList(takeGreedy(cards[0],cards[-1]),cards)
+    return score, cards
 
 def mainGame(n,cards):
-    greedyScore = 0
+    tempCards = cards
+    scoreList = []
     algoScore = 0
-    for i in range(n):
-        left = cards[0]
-        right = cards[-1]
+    posActions = ["left", "right"]
+    actionList = list(product(posActions, repeat=int(n / 2)))
 
-        # Pick the card for the strategy
-        actionAlgo = takeAlgo(cards, left, right)
-        score, cards = updateList(actionAlgo, cards)
-        algoScore += score
+    for actionPairs in actionList:
+        cards = tempCards
+        for action in actionPairs:
+            score, cards = actionPhase(cards, action)
+            algoScore += score
+        scoreList.append(algoScore)
 
-        if len(cards) < 1:
-            return algoScore
-
-        # Greedy strategy takes a card
-        actionGreedy = takeGreedy(left,right)
-        score, cards = updateList(actionGreedy,cards)
-        greedyScore += score
-
-        if len(cards) < 1:
-            return algoScore
-
-        # Keep tap on score
-        # Break when no more cards
+    return max(scoreList)
 
 
 if __name__ == "__main__":
-    n, inCards = inFromCommand()
-    results = []
-    for i in range(n):
-        cards = inCards
-        results.append(mainGame(n, cards))
-    print(max(results))
+    n, cards = inFromCommand()
+    print(mainGame(n, cards))
 
 

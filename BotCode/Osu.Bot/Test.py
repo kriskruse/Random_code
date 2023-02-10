@@ -1,16 +1,44 @@
 import ImageProcessing
 import timeit
 
-# code snippet to be executed only once
-mysetup = "import ImageProcessing"
+def testAutoGui():
+    mysetup = "import ImageProcessing"
+    mycode = "ImageProcessing.autoguiCapture()"
 
-# code snippet whose execution time is to be measured
-mycode = "ImageProcessing.grab_screen()"
+    totaltime = timeit.timeit(setup=mysetup,
+                        stmt=mycode,
+                        number=1000)
+    print(mycode)
+    print(totaltime)
+    print(totaltime/1000)
+    print("")
 
-# timeit statement
-totaltime = timeit.timeit(setup=mysetup,
-                    stmt=mycode,
-                    number=1000)
+def testDxcam():
+    mysetup = "import ImageProcessing"
+    mycode = "ImageProcessing.dxCamCapture()"
 
-print(totaltime)
-print(totaltime/1000)
+    totaltime = timeit.timeit(setup=mysetup,
+                              stmt=mycode,
+                              number=1000)
+
+    print(mycode)
+    print(totaltime)
+    print(totaltime / 1000)
+    print("")
+def testMss():
+    mysetup = "import ImageProcessing"
+    mycode = "ImageProcessing.mssCapture()"
+
+    totaltime = timeit.timeit(setup=mysetup,
+                              stmt=mycode,
+                              number=1000)
+
+    print(mycode)
+    print(totaltime)
+    print(totaltime / 1000)
+    print("")
+
+if __name__ == '__main__':
+    testAutoGui()
+    testDxcam()
+    testMss()

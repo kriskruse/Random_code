@@ -19,4 +19,4 @@ def mssCapture():
     with mss.mss() as sct:
         monitor = {"top": 0 , "left": 0, "width": 1920, "height": 1080}
         img_array = np.array(sct.grab(monitor))
-        return img_array
+    return img_array

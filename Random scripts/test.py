@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import random
 from tqdm import tqdm
 
@@ -15,3 +16,19 @@ if __name__ == '__main__':
         print(sums[x])
         print(avgs[x])
 
+=======
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        nums = list(set(nums))
+        return len(nums)
+
+int[] nums = [...]; // Input array
+int[] expectedNums = [...]; // The expected answer with correct length
+
+int k = removeDuplicates(nums); // Calls your implementation
+
+assert k == expectedNums.length;
+for (int i = 0; i < k; i++) {
+    assert nums[i] == expectedNums[i];
+}
+>>>>>>> Stashed changes
